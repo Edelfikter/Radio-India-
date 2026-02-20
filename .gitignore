@@ -1,5 +1,7 @@
 node_modules/
 *.sqlite
+*.sqlite-shm
+*.sqlite-wal
 *.db
 .env
 public/assets/sam-audio/*.wav
