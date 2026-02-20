@@ -1,0 +1,310 @@
+/* ==============================
+   MAIN.CSS — Base, CRT, Layout
+   ============================== */
+
+:root {
+    --bg: #0a0a0a;
+    --crt-bg: #0d1117;
+    --primary: #00ffcc;
+    --primary-dim: #007a66;
+    --alert: #ff3333;
+    --live: #00ff88;
+    --border: #00ffcc33;
+    --panel-bg: #0d1117cc;
+    --text-glow: 0 0 6px #00ffcc66;
+    --font: 'Share Tech Mono', monospace;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: var(--bg);
+    font-family: var(--font);
+    color: var(--primary);
+}
+
+/* CRT scanline overlay */
+.crt-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.08) 2px,
+        rgba(0, 0, 0, 0.08) 4px
+    );
+    animation: flicker 0.15s infinite;
+}
+
+@keyframes flicker {
+    0%   { opacity: 1; }
+    92%  { opacity: 1; }
+    93%  { opacity: 0.97; }
+    94%  { opacity: 1; }
+    96%  { opacity: 0.98; }
+    100% { opacity: 1; }
+}
+
+/* Top Bar */
+#topbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 44px;
+    z-index: 1000;
+    background: var(--panel-bg);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    backdrop-filter: blur(4px);
+}
+
+#topbar-brand {
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--primary);
+    text-shadow: var(--text-glow);
+    letter-spacing: 0.08em;
+}
+
+#topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#topbar-user {
+    font-size: 0.75rem;
+    color: var(--primary-dim);
+    text-shadow: var(--text-glow);
+}
+
+/* Bottom Status Bar */
+#statusbar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: 28px;
+    z-index: 1000;
+    background: var(--panel-bg);
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    gap: 24px;
+    font-size: 0.7rem;
+    color: var(--primary-dim);
+    text-shadow: var(--text-glow);
+    backdrop-filter: blur(4px);
+}
+
+#status-time {
+    margin-left: auto;
+    color: var(--primary);
+}
+
+/* Terminal Buttons */
+.btn-terminal {
+    background: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    font-family: var(--font);
+    font-size: 0.7rem;
+    padding: 4px 10px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: background 0.15s, color 0.15s;
+    text-shadow: var(--text-glow);
+}
+
+.btn-terminal:hover {
+    background: var(--primary);
+    color: var(--bg);
+    text-shadow: none;
+}
+
+.btn-primary {
+    border-color: var(--primary);
+    margin-top: 10px;
+    width: 100%;
+    padding: 8px;
+    font-size: 0.85rem;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 5000;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Terminal Input */
+.terminal-input {
+    display: block;
+    width: 100%;
+    background: #050a0f;
+    border: 1px solid var(--primary-dim);
+    color: var(--primary);
+    font-family: var(--font);
+    font-size: 0.85rem;
+    padding: 6px 8px;
+    margin-bottom: 8px;
+    outline: none;
+    transition: border-color 0.15s;
+}
+
+.terminal-input:focus {
+    border-color: var(--primary);
+}
+
+select.terminal-input option {
+    background: #0d1117;
+}
+
+textarea.terminal-input {
+    resize: vertical;
+    min-height: 50px;
+}
+
+/* Labels */
+.field-label {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--primary-dim);
+    text-transform: uppercase;
+    margin-bottom: 2px;
+    margin-top: 6px;
+    letter-spacing: 0.05em;
+}
+
+.hint-text {
+    font-size: 0.65rem;
+    color: var(--primary-dim);
+    display: block;
+    margin-bottom: 6px;
+}
+
+/* Error message */
+.error-msg {
+    color: var(--alert);
+    font-size: 0.75rem;
+    margin-top: 6px;
+    min-height: 16px;
+}
+
+/* Auth Tabs */
+#auth-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.tab-btn {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--primary-dim);
+    font-family: var(--font);
+    font-size: 0.8rem;
+    padding: 6px 16px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: -1px;
+}
+
+.tab-btn.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+    text-shadow: var(--text-glow);
+}
+
+/* Live badge */
+.live-badge {
+    display: inline-block;
+    background: var(--alert);
+    color: #fff;
+    font-size: 0.6rem;
+    padding: 1px 5px;
+    letter-spacing: 0.1em;
+    animation: blink-live 1s step-end infinite;
+    text-shadow: none;
+}
+
+@keyframes blink-live {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+/* Volume slider */
+.volume-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0;
+    font-size: 0.72rem;
+}
+
+input[type="range"].volume-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100px;
+    height: 4px;
+    background: var(--primary-dim);
+    outline: none;
+    border-radius: 2px;
+}
+
+input[type="range"].volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    background: var(--primary);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* TTS waveform animation */
+.tts-indicator {
+    font-size: 0.8rem;
+    color: var(--live);
+    text-shadow: 0 0 8px var(--live);
+    animation: pulse-text 1.2s ease-in-out infinite;
+    text-align: center;
+    padding: 10px 0;
+}
+
+@keyframes pulse-text {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 4px;
+}
+::-webkit-scrollbar-track {
+    background: #050a0f;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--primary-dim);
+}

@@ -1,0 +1,86 @@
+/* ==============================
+   MAP.CSS — Map, Pins, Pulse
+   ============================== */
+
+#map {
+    position: fixed;
+    top: 44px;
+    left: 0;
+    right: 0;
+    bottom: 28px;
+    z-index: 0;
+    filter: brightness(0.6) contrast(1.4) sepia(1) hue-rotate(120deg) saturate(3);
+}
+
+/* Leaflet popup reset */
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+.leaflet-popup-content-wrapper {
+    padding: 0 !important;
+}
+.leaflet-popup-content {
+    margin: 0 !important;
+}
+
+/* Station pin base styles */
+.station-pin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* Live station: cyan dot + pulsing ring */
+.station-pin-live {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #00ffcc;
+    box-shadow: 0 0 8px #00ffcc;
+    position: relative;
+}
+
+.station-pin-live::before,
+.station-pin-live::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid #00ffcc;
+    animation: radar-ping 2s ease-out infinite;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.station-pin-live::after {
+    animation-delay: 1s;
+}
+
+@keyframes radar-ping {
+    0%   { width: 14px; height: 14px; opacity: 0.9; }
+    100% { width: 50px; height: 50px; opacity: 0; }
+}
+
+/* Offline station: dim dot */
+.station-pin-offline {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #007a66;
+    opacity: 0.5;
+}
+
+/* Leaflet attribution (hide for clean look) */
+.leaflet-control-attribution {
+    opacity: 0.3;
+    font-size: 8px !important;
+    background: transparent !important;
+    color: #007a66 !important;
+}
+
+/* Crosshair cursor when picking coordinates */
+#map.picking-coords {
+    cursor: crosshair !important;
+}

@@ -1,0 +1,105 @@
+/* ==============================
+   CHAT.CSS — Chat Panel
+   ============================== */
+
+#chat-panel {
+    position: fixed;
+    bottom: 36px;
+    right: 16px;
+    width: 300px;
+    z-index: 1500;
+    user-select: none;
+}
+
+#chat-panel .panel-header {
+    cursor: grab;
+}
+
+#chat-panel .panel-header:active {
+    cursor: grabbing;
+}
+
+#chat-body {
+    display: flex;
+    flex-direction: column;
+    height: 260px;
+}
+
+#chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 6px 8px;
+    font-size: 0.72rem;
+    line-height: 1.45;
+    scroll-behavior: smooth;
+}
+
+.chat-msg {
+    margin-bottom: 4px;
+    word-break: break-word;
+}
+
+.chat-msg .chat-user {
+    color: var(--primary);
+    text-shadow: var(--text-glow);
+    margin-right: 4px;
+}
+
+.chat-msg .chat-time {
+    color: var(--primary-dim);
+    font-size: 0.62rem;
+    margin-right: 4px;
+}
+
+.chat-msg .chat-text {
+    color: rgba(0, 255, 204, 0.85);
+}
+
+.chat-msg.system-msg .chat-text {
+    color: var(--primary-dim);
+    font-style: italic;
+}
+
+#chat-input-row {
+    display: flex;
+    gap: 4px;
+    padding: 6px 8px;
+    border-top: 1px solid var(--border);
+}
+
+#chat-input-row .terminal-input {
+    flex: 1;
+    margin-bottom: 0;
+    font-size: 0.75rem;
+    padding: 4px 6px;
+}
+
+#chat-input-row .btn-terminal {
+    font-size: 0.65rem;
+    padding: 4px 8px;
+    white-space: nowrap;
+}
+
+/* Minimized state */
+#chat-panel.minimized #chat-body {
+    display: none;
+}
+
+#chat-panel.minimized {
+    width: auto;
+}
+
+/* Chat listener count */
+#chat-listener-count {
+    font-size: 0.65rem;
+    color: var(--primary-dim);
+    margin-right: 6px;
+}
+
+/* Chat error */
+.chat-error {
+    color: var(--alert);
+    font-size: 0.65rem;
+    padding: 2px 8px;
+    font-style: italic;
+}
