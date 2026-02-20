@@ -1,0 +1,285 @@
+/* ==============================
+   PANELS.CSS — Floating Terminal Panels
+   ============================== */
+
+.terminal-panel {
+    background: var(--panel-bg);
+    border: 1px solid var(--primary);
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.15), inset 0 0 40px rgba(0, 0, 0, 0.5);
+    font-family: var(--font);
+    color: var(--primary);
+    backdrop-filter: blur(8px);
+    min-width: 280px;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(0, 255, 204, 0.04);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-shadow: var(--text-glow);
+    cursor: grab;
+}
+
+.panel-header:active {
+    cursor: grabbing;
+}
+
+.panel-close {
+    background: transparent;
+    border: none;
+    color: var(--primary-dim);
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding: 0 2px;
+    font-family: var(--font);
+    transition: color 0.1s;
+}
+
+.panel-close:hover {
+    color: var(--alert);
+}
+
+.panel-body {
+    padding: 10px 12px;
+    font-size: 0.8rem;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+/* Auth Panel */
+#auth-panel {
+    width: 340px;
+}
+
+/* Create Station Panel */
+#create-station-panel {
+    width: 360px;
+}
+
+/* Station Popup — floating near pins */
+#station-popup {
+    position: fixed;
+    z-index: 2000;
+    width: 340px;
+    max-height: 80vh;
+}
+
+#station-popup .panel-body {
+    max-height: calc(80vh - 36px);
+}
+
+.floating-panel {
+    position: fixed;
+    z-index: 2000;
+}
+
+/* Station Popup Content */
+.station-desc {
+    color: var(--primary-dim);
+    font-size: 0.75rem;
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.station-meta {
+    font-size: 0.7rem;
+    color: var(--primary-dim);
+    margin-bottom: 10px;
+}
+
+.station-meta span {
+    display: inline-block;
+    margin-right: 12px;
+}
+
+.station-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+
+.station-actions .btn-terminal {
+    flex: 1;
+    min-width: 80px;
+    text-align: center;
+}
+
+/* Segment List in popup */
+.segment-list {
+    border-top: 1px solid var(--border);
+    padding-top: 8px;
+    margin-top: 8px;
+}
+
+.segment-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.72rem;
+}
+
+.segment-item:last-child {
+    border-bottom: none;
+}
+
+.segment-pos {
+    color: var(--primary-dim);
+    width: 18px;
+    flex-shrink: 0;
+}
+
+.segment-info {
+    flex: 1;
+}
+
+.segment-type {
+    font-size: 0.6rem;
+    padding: 1px 4px;
+    border: 1px solid;
+    margin-right: 4px;
+    letter-spacing: 0.05em;
+}
+
+.segment-type.youtube {
+    border-color: #ff4444;
+    color: #ff4444;
+}
+
+.segment-type.tts {
+    border-color: var(--live);
+    color: var(--live);
+}
+
+.segment-title {
+    color: var(--primary);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 180px;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.segment-dur {
+    color: var(--primary-dim);
+    font-size: 0.65rem;
+    margin-top: 2px;
+}
+
+.segment-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.seg-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--primary-dim);
+    font-family: var(--font);
+    font-size: 0.6rem;
+    padding: 1px 4px;
+    cursor: pointer;
+}
+
+.seg-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.seg-btn.danger:hover {
+    border-color: var(--alert);
+    color: var(--alert);
+}
+
+/* Add Segment Form */
+.add-segment-form {
+    background: rgba(0, 255, 204, 0.03);
+    border: 1px solid var(--border);
+    padding: 8px;
+    margin-top: 8px;
+}
+
+.add-segment-form h4 {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--primary-dim);
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+}
+
+.seg-type-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 8px;
+}
+
+/* Player section in popup */
+#popup-player {
+    margin-top: 8px;
+    border-top: 1px solid var(--border);
+    padding-top: 8px;
+}
+
+#yt-embed-container {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #000;
+    margin-bottom: 6px;
+}
+
+#yt-embed-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.now-playing-info {
+    font-size: 0.7rem;
+    color: var(--primary-dim);
+    margin-bottom: 4px;
+}
+
+.now-playing-info strong {
+    color: var(--primary);
+}
+
+/* Progress bar */
+.progress-bar-outer {
+    width: 100%;
+    height: 3px;
+    background: var(--border);
+    margin: 6px 0;
+    cursor: default;
+}
+
+.progress-bar-inner {
+    height: 100%;
+    background: var(--primary);
+    width: 0%;
+    transition: width 0.5s linear;
+    box-shadow: 0 0 6px var(--primary);
+}
+
+/* Edit station form (embedded in popup) */
+.edit-station-form {
+    border-top: 1px solid var(--border);
+    padding-top: 10px;
+    margin-top: 8px;
+}
+
+.edit-station-form h4 {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--primary-dim);
+    margin-bottom: 8px;
+}
