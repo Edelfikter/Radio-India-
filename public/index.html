@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ALL INDIA PUBLIC RADIO</title>
+  <!-- Leaflet CSS must load before Leaflet JS to fix tile rendering issues -->
+  <link rel="stylesheet" href="/leaflet/leaflet.css">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<!-- CRT scanline overlay -->
+<div id="scanlines"></div>
+
+<!-- Top bar -->
+<div id="topbar">
+  <span id="brand">▶ ALL INDIA PUBLIC RADIO</span>
+  <span id="auth-area">
+    <span id="username-display"></span>
+    <button id="btn-create-station" class="crt-btn" style="display:none">+ NEW STATION</button>
+    <button id="btn-logout" class="crt-btn" style="display:none">LOGOUT</button>
+    <button id="btn-login" class="crt-btn">LOGIN</button>
+    <button id="btn-register" class="crt-btn">REGISTER</button>
+  </span>
+</div>
+
+<!-- Map container -->
+<div id="map"></div>
+
+<!-- Bottom status bar -->
+<div id="statusbar">
+  <span id="stat-live">LIVE: 0</span>
+  &nbsp;│&nbsp;
+  <span id="stat-total">STATIONS: 0</span>
+  &nbsp;│&nbsp;
+  <span id="stat-listeners">LISTENERS: 0</span>
+  &nbsp;│&nbsp;
+  <span id="stat-time"></span>
+</div>
+
+<!-- Auth modal -->
+<div id="auth-modal" class="modal" style="display:none">
+  <div class="panel" id="auth-panel">
+    <div class="panel-header">
+      <span id="auth-title">LOGIN</span>
+      <button class="close-btn" onclick="closeModal('auth-modal')">✕</button>
+    </div>
+    <div class="panel-body">
+      <input id="auth-username" class="crt-input" type="text" placeholder="USERNAME" autocomplete="username">
+      <input id="auth-password" class="crt-input" type="password" placeholder="PASSWORD" autocomplete="current-password">
+      <div id="auth-error" class="error-msg"></div>
+      <button id="auth-submit" class="crt-btn primary">SUBMIT</button>
+    </div>
+  </div>
+</div>
+
+<!-- Create station modal -->
+<div id="station-modal" class="modal" style="display:none">
+  <div class="panel" id="station-panel">
+    <div class="panel-header">
+      <span>NEW STATION</span>
+      <button class="close-btn" onclick="closeModal('station-modal')">✕</button>
+    </div>
+    <div class="panel-body">
+      <input id="st-name" class="crt-input" type="text" placeholder="STATION NAME" maxlength="64">
+      <textarea id="st-desc" class="crt-input" placeholder="DESCRIPTION" rows="2" maxlength="280"></textarea>
+      <div style="display:flex;gap:8px">
+        <input id="st-lat" class="crt-input" type="number" placeholder="LATITUDE" step="any" min="6" max="37">
+        <input id="st-lng" class="crt-input" type="number" placeholder="LONGITUDE" step="any" min="68" max="98">
+      </div>
+      <small class="hint">Click on the map to set coordinates</small>
+      <div id="st-error" class="error-msg"></div>
+      <button id="st-submit" class="crt-btn primary">CREATE</button>
+    </div>
+  </div>
+</div>
+
+<!-- Station popup panel -->
+<div id="popup-panel" class="panel" style="display:none;position:absolute;z-index:1000;min-width:300px">
+  <div class="panel-header">
+    <span id="popup-title">STATION</span>
+    <button class="close-btn" id="popup-close">✕</button>
+  </div>
+  <div class="panel-body" id="popup-body"></div>
+</div>
+
+<!-- YouTube player (hidden) -->
+<div id="yt-container" style="display:none;position:absolute;bottom:60px;right:20px;z-index:900;width:320px;height:180px;border:1px solid #00ffcc44">
+  <div id="yt-player"></div>
+  <button class="crt-btn" onclick="stopListening()" style="position:absolute;top:4px;right:4px;padding:2px 6px;font-size:10px">✕ TUNE OUT</button>
+</div>
+
+<!-- Chat panel -->
+<div id="chat-panel" class="panel" style="position:absolute;bottom:40px;right:20px;z-index:900;width:320px">
+  <div class="panel-header" id="chat-header" style="cursor:move">
+    <span>GLOBAL CHAT</span>
+    <button class="close-btn" id="chat-minimize">—</button>
+  </div>
+  <div id="chat-body">
+    <div id="chat-messages"></div>
+    <div style="display:flex;gap:4px;padding:6px">
+      <input id="chat-input" class="crt-input" type="text" placeholder="MESSAGE (280 chars)" maxlength="280" style="flex:1">
+      <button class="crt-btn primary" id="chat-send">SEND</button>
+    </div>
+  </div>
+</div>
+
+<!-- Leaflet JS loaded locally to avoid CDN dependency and ensure consistent tile rendering -->
+<script src="/leaflet/leaflet.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>
