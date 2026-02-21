@@ -1,0 +1,366 @@
+/* ===== CRT / WarGames Aesthetic ===== */
+:root {
+  --green: #00ff41;
+  --green-dim: #00b32c;
+  --green-dark: #003b0e;
+  --bg: #0a0a0a;
+  --panel: #0d1a0d;
+  --border: #1a3a1a;
+  --text: #00ff41;
+  --text-muted: #00b32c;
+  --danger: #ff3333;
+  --font: 'Courier New', Courier, monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  overflow-x: hidden;
+}
+
+/* ---- CRT scanline overlay ---- */
+.crt-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.18) 2px,
+    rgba(0, 0, 0, 0.18) 4px
+  );
+  animation: flicker 0.15s infinite;
+}
+
+@keyframes flicker {
+  0%   { opacity: 1; }
+  50%  { opacity: 0.96; }
+  100% { opacity: 1; }
+}
+
+/* ---- Header ---- */
+header {
+  text-align: center;
+  padding: 1rem 1rem 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.title {
+  font-size: 1.8rem;
+  letter-spacing: 0.25em;
+  text-shadow: 0 0 10px var(--green), 0 0 20px var(--green-dim);
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 8px var(--green); }
+  to   { text-shadow: 0 0 18px var(--green), 0 0 32px var(--green-dim); }
+}
+
+.subtitle {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.15em;
+  margin-top: 0.25rem;
+}
+
+/* ---- Main layout ---- */
+main {
+  display: flex;
+  height: calc(100vh - 80px);
+  gap: 0;
+}
+
+/* ---- Map container ---- */
+#map-container {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  border-right: 1px solid var(--border);
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+  /* Leaflet requires explicit dimensions to render correctly */
+  background: #000;
+  filter: sepia(0.15) hue-rotate(80deg) saturate(1.4) brightness(0.85);
+}
+
+.map-hint {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 20, 0, 0.85);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  padding: 6px 14px;
+  border-radius: 2px;
+  z-index: 1000;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+
+.map-hint.hidden {
+  opacity: 0;
+}
+
+/* ---- Sidebar ---- */
+#sidebar {
+  width: 300px;
+  flex: 0 0 300px;
+  display: flex;
+  flex-direction: column;
+  background: var(--panel);
+  overflow-y: auto;
+}
+
+#sidebar h2 {
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  padding: 0.75rem 1rem 0.5rem;
+  border-bottom: 1px solid var(--border);
+  text-transform: uppercase;
+}
+
+/* ---- Station creation form ---- */
+#station-form-section {
+  padding: 0 0 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.form-group {
+  padding: 0.4rem 1rem 0;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  margin-bottom: 3px;
+  text-transform: uppercase;
+}
+
+.form-group input {
+  width: 100%;
+  background: #0a160a;
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 0.82rem;
+  padding: 5px 8px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+  border-color: var(--green-dim);
+}
+
+.form-group input[readonly] {
+  color: var(--green-dim);
+  cursor: default;
+}
+
+.coord-group {
+  display: flex;
+  gap: 8px;
+}
+
+.coord-group > div {
+  flex: 1;
+}
+
+.coord-group input {
+  font-size: 0.72rem;
+}
+
+.coord-hint {
+  font-size: 0.65rem;
+  color: var(--green-dark);
+  padding: 3px 1rem 0;
+  letter-spacing: 0.05em;
+}
+
+#create-btn {
+  display: block;
+  margin: 0.75rem 1rem 0.5rem;
+  width: calc(100% - 2rem);
+  background: transparent;
+  border: 1px solid var(--green-dim);
+  color: var(--green);
+  font-family: var(--font);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  padding: 8px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+#create-btn:hover:not(:disabled) {
+  background: var(--green-dark);
+  box-shadow: 0 0 10px var(--green-dim);
+}
+
+#create-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* ---- Stations list ---- */
+#stations-list-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+#stations-list {
+  list-style: none;
+  flex: 1;
+  overflow-y: auto;
+}
+
+#stations-list li {
+  border-bottom: 1px solid var(--border);
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+#stations-list li:hover {
+  background: var(--green-dark);
+}
+
+#stations-list li .stn-name {
+  font-size: 0.85rem;
+  display: block;
+}
+
+#stations-list li .stn-coords {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+  display: block;
+}
+
+#stations-list li.active {
+  background: var(--green-dark);
+  border-left: 3px solid var(--green);
+}
+
+.empty-msg {
+  color: var(--green-dark);
+  font-size: 0.72rem;
+  padding: 1rem;
+  text-align: center;
+  letter-spacing: 0.1em;
+}
+
+/* ---- Leaflet popup overrides ---- */
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: var(--font);
+  box-shadow: 0 0 12px var(--green-dim);
+}
+
+.leaflet-popup-content {
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.popup-name {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.popup-url {
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  word-break: break-all;
+}
+
+/* ---- Leaflet attribution override ---- */
+.leaflet-control-attribution {
+  background: rgba(0,0,0,0.7) !important;
+  color: var(--green-dark) !important;
+  font-size: 0.6rem !important;
+}
+
+.leaflet-control-attribution a {
+  color: var(--green-dim) !important;
+}
+
+/* ---- Leaflet zoom control override ---- */
+.leaflet-control-zoom a {
+  background: var(--panel) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background: var(--green-dark) !important;
+}
+
+/* ---- Custom map pins ---- */
+.station-pin {
+  width: 12px;
+  height: 12px;
+  background: var(--green);
+  border-radius: 50%;
+  box-shadow: 0 0 6px var(--green), 0 0 14px var(--green-dim);
+}
+
+.pending-pin {
+  width: 14px;
+  height: 14px;
+  background: transparent;
+  border: 2px solid var(--green);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--green);
+  animation: pulse-pin 1s ease-in-out infinite alternate;
+}
+
+@keyframes pulse-pin {
+  from { box-shadow: 0 0 4px var(--green); }
+  to   { box-shadow: 0 0 14px var(--green), 0 0 24px var(--green-dim); }
+}
+
+/* ---- Responsive tweaks ---- */
+@media (max-width: 640px) {
+  main {
+    flex-direction: column;
+    height: auto;
+  }
+
+  #map-container {
+    height: 55vh;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  #sidebar {
+    width: 100%;
+    flex: 0 0 auto;
+  }
+}

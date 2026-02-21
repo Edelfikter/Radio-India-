@@ -1,0 +1,24 @@
+{
+  "name": "radio-india",
+  "version": "1.0.0",
+  "description": "A WarGames-styled internet radio platform on a map of India.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Edelfikter/Radio-India-.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Edelfikter/Radio-India-/issues"
+  },
+  "homepage": "https://github.com/Edelfikter/Radio-India-#readme",
+  "dependencies": {
+    "leaflet": "^1.9.4"
+  }
+}
