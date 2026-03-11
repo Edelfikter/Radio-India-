@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All India Public Radio</title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #000;
+            color: #00ff00;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0 20px;
+            border-bottom: 1px solid #00ff00;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            letter-spacing: 0.1em;
+            text-shadow: 0 0 10px #00ff00;
+        }
+
+        header p {
+            margin-top: 10px;
+            font-size: 1em;
+            opacity: 0.8;
+        }
+
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85em;
+            margin-bottom: 30px;
+            padding: 8px 0;
+            border-bottom: 1px solid #005500;
+        }
+
+        .status-bar span::before {
+            content: '> ';
+        }
+
+        .map-placeholder {
+            border: 1px solid #00ff00;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .map-placeholder::before {
+            content: 'INDIA';
+            position: absolute;
+            top: 10px;
+            left: 14px;
+            font-size: 0.75em;
+            opacity: 0.5;
+        }
+
+        .map-placeholder p {
+            opacity: 0.7;
+            font-size: 0.9em;
+        }
+
+        .blink {
+            animation: blink 1s step-start infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .station-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .station-card {
+            border: 1px solid #00aa00;
+            padding: 16px;
+            cursor: pointer;
+            transition: background-color 0.2s, box-shadow 0.2s;
+        }
+
+        .station-card:hover {
+            background-color: #001a00;
+            box-shadow: 0 0 8px #00ff00;
+        }
+
+        .station-card h3 {
+            font-size: 1em;
+            margin-bottom: 6px;
+            text-shadow: 0 0 6px #00ff00;
+        }
+
+        .station-card p {
+            font-size: 0.8em;
+            opacity: 0.7;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            border-top: 1px solid #005500;
+            font-size: 0.8em;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ALL INDIA PUBLIC RADIO</h1>
+            <p>A WarGames-styled internet radio platform on a map of India</p>
+        </header>
+
+        <div class="status-bar">
+            <span>SYSTEM ONLINE</span>
+            <span>SIGNAL ACQUIRED</span>
+            <span id="clock">--:--:--</span>
+        </div>
+
+        <div class="map-placeholder">
+            <p>[ INDIA MAP INTERFACE — COMING SOON ]</p>
+            <p>Select a region to tune in to local radio stations</p>
+            <p class="blink">_</p>
+        </div>
+
+        <div class="station-grid">
+            <div class="station-card">
+                <h3>AIR Mumbai</h3>
+                <p>Mumbai &mdash; 100.1 FM</p>
+            </div>
+            <div class="station-card">
+                <h3>AIR Delhi</h3>
+                <p>New Delhi &mdash; 102.6 FM</p>
+            </div>
+            <div class="station-card">
+                <h3>AIR Kolkata</h3>
+                <p>Kolkata &mdash; 107.8 FM</p>
+            </div>
+            <div class="station-card">
+                <h3>AIR Chennai</h3>
+                <p>Chennai &mdash; 101.4 FM</p>
+            </div>
+            <div class="station-card">
+                <h3>AIR Bengaluru</h3>
+                <p>Bengaluru &mdash; 103.2 FM</p>
+            </div>
+            <div class="station-card">
+                <h3>AIR Hyderabad</h3>
+                <p>Hyderabad &mdash; 100.3 FM</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; All India Public Radio &mdash; All frequencies monitored</p>
+        </footer>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const pad = n => String(n).padStart(2, '0');
+            document.getElementById('clock').textContent =
+                pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
+</body>
+</html>

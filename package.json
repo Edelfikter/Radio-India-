@@ -1,0 +1,15 @@
+{
+  "name": "radio-india",
+  "version": "1.0.0",
+  "description": "A WarGames-styled internet radio platform on a map of India",
+  "main": "index.html",
+  "scripts": {
+    "dev": "serve .",
+    "build": "echo 'No build step needed'",
+    "start": "serve ."
+  },
+  "devDependencies": {
+    "serve": "^14.2.1"
+  },
+  "license": "MIT"
+}
